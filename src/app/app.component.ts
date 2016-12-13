@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Hex, Board, generate_points } from './hex';
+import { Hex, Board,
+         get_neighbors,
+         generate_points, hex_to_letter } from './hex';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,6 @@ import { Hex, Board, generate_points } from './hex';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
   hexes: Hex[] = [];
   board: Board;
   debug_string: string = "";
@@ -16,17 +17,30 @@ export class AppComponent implements OnInit {
      this.board = {
          x_size: 1000,
          y_size: 1000,
-         columns: 60,
+         columns: 15,
          rows: 15
      };
-     for(let x = 0; x < this.board.columns; x++){
-         for(let y = 0; y < this.board.rows; y++){
+     this.set_hexes();
+  }
+
+  set_hexes(){
+     this.hexes = [];
+     for(let x = 1; x < this.board.columns + 1; x++){
+         for(let y = 1; y < this.board.rows + 1; y++){
              this.hexes.push(generate_points(x, y, this.board));
          }
      }
   }
 
   debug(hex: Hex){
-      this.debug_string=JSON.stringify(hex);
+      //this.debug_string=JSON.stringify(hex);
+      for(let h of this.hexes){
+          h.color = "";
+      }
+      hex.color = "#ffffff";
+      for(let h2 of get_neighbors(hex, this.hexes)){
+          h2.color = "#555";
+      }
+      this.debug_string=hex_to_letter(hex);
   }
 }
