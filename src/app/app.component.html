@@ -1,3 +1,11 @@
-<h1>
-  {{title}}
-</h1>
+<p *ngIf="debug_string">
+  {{debug_string}}
+</p>
+<svg [attr.width]="board.x_size"
+     [attr.height]="board.y_size">
+    <polygon *ngFor="let hex of hexes"
+             class="hex"
+             (click)="debug(hex)"
+             [attr.points]="hex.point_string">
+    </polygon>
+</svg>
