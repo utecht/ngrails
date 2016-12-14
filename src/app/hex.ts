@@ -6,6 +6,8 @@ export interface Point {
 export interface Hex {
     x: number;
     y: number;
+    width: number;
+    height: number;
     point_string?: string;
     points?: Point[];
     center: Point;
@@ -22,10 +24,16 @@ export interface Board {
 }
 
 export function hex_to_letter(hex: Hex): string{
-    let letter = String.fromCharCode(64 + hex.y);
+    let letter_len = Math.ceil(hex.y / 26);
+    let running_num = hex.y - 1;
+    let letter: string = "";
+    for(let i = 0; i < letter_len; i++){
+        letter += String.fromCharCode(65 + (running_num % 26));
+        running_num -= 26;
+    }
     let num = hex.x * 2;
     if(hex.y % 2 != 0){
-        num = num - 1;
+        num -= 1;
     }
     return letter + num;
 }
@@ -61,8 +69,8 @@ export function get_neighbors(hex: Hex, hexes: Hex[]): Hex[]{
     return ret;
 }
 
-export function offset_hexes(x:number, y:number, board: Board): Hex{
-    let height: number = board.size * 2;
+export function offset_hexes(x:number, y:number, size: number): Hex{
+    let height: number = size * 2;
     let width: number = (Math.sqrt(3) / 2) * height;
     let center: Point = {x: width / 2,
                          y: height / 2};
@@ -75,6 +83,8 @@ export function offset_hexes(x:number, y:number, board: Board): Hex{
     let hex: Hex = {
         x: x,
         y: y,
+        width: width,
+        height: height,
         center: center,
         origin: origin,
     };

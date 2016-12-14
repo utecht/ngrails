@@ -15,8 +15,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit(){
      this.board = {
-         x_size: 1000,
-         y_size: 1000,
+         x_size: 1500,
+         y_size: 1300,
          columns: 15,
          rows: 15,
          size: 50
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
      let new_hexes: Hex[] = [];
      for(let x = 1; x < this.board.columns + 1; x++){
          for(let y = 1; y < this.board.rows + 1; y++){
-             new_hexes.push(offset_hexes(x, y, this.board));
+             new_hexes.push(offset_hexes(x, y, this.board.size));
          }
      }
      if(new_hexes.length > 0){
