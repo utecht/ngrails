@@ -1,3 +1,10 @@
+<h2>Tile tester</h2>
+<form>
+    <label for="a">A</label>
+    <input type="number" name="a" [(ngModel)]="side_a">
+    <label for="b">B</label>
+    <input type="number" name="b" [(ngModel)]="side_b">
+</form>
 <svg *ngIf="hex"
      class="crosshair"
      (click)="debug(hex)"
@@ -9,4 +16,8 @@
          class="hex"
          [attr.fill]="hex.color"
          [attr.points]="hex.point_string"></polygon>
+         <path class="track"
+               [attr.d]="generate_path()"
+               stroke="black"
+               fill="transparent"/>
 </svg>

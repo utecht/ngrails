@@ -106,7 +106,7 @@ function point_to_string(point: Point): string{
     return point.x + ',' + point.y;
 }
 
-function hex_side(center: Point, size: number, i: number): Point{
+export function hex_side(center: Point, size: number, i: number): Point{
     let angle_deg: number = 60 * i;
     let angle_rad: number = Math.PI / 180 * angle_deg;
     size = Math.sqrt(Math.pow(size, 2) - Math.pow((size / 2), 2))

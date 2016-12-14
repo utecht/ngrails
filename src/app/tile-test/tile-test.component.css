@@ -13,3 +13,7 @@ text.text {
     fill: black;
     font-size: .75em;
 }
+
+.track{
+    stroke-width: 5;
+}
