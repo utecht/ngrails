@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hex, Board,
-         get_neighbors,
+         get_neighbors, offset_hexes,
          generate_points, hex_to_letter } from './hex';
 
 @Component({
@@ -18,18 +18,27 @@ export class AppComponent implements OnInit {
          x_size: 1000,
          y_size: 1000,
          columns: 15,
-         rows: 15
+         rows: 15,
+         size: 50
      };
      this.set_hexes();
   }
 
   set_hexes(){
-     this.hexes = [];
+     let new_hexes: Hex[] = [];
      for(let x = 1; x < this.board.columns + 1; x++){
          for(let y = 1; y < this.board.rows + 1; y++){
-             this.hexes.push(generate_points(x, y, this.board));
+             new_hexes.push(offset_hexes(x, y, this.board));
          }
      }
+     if(new_hexes.length > 0){
+         let point_hex = generate_points(new_hexes[0], this.board);
+         for(let hex of new_hexes){
+             hex.point_string = point_hex.point_string;
+             hex.points = point_hex.points;
+         }
+     }
+     this.hexes = new_hexes;
   }
 
   to_letter(hex: Hex): string{

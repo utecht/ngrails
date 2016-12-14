@@ -10,19 +10,24 @@
 <input type="number" name="columns" [(ngModel)]="board.columns">
 <label for="rows">Rows</label>
 <input type="number" name="rows" [(ngModel)]="board.rows">
+<label for="size">Size</label>
+<input type="number" name="size" [(ngModel)]="board.size">
 <button (click)="set_hexes()">Set</button>
 </form>
 <svg [attr.width]="board.x_size"
      [attr.height]="board.y_size">
-    <g *ngFor="let hex of hexes">
+    <svg *ngFor="let hex of hexes"
+         class="crosshair"
+         (click)="debug(hex)"
+         [attr.x]="hex.origin.x"
+         [attr.y]="hex.origin.y">
         <polygon
              class="hex"
-             (click)="debug(hex)"
              [attr.fill]="hex.color"
              [attr.points]="hex.point_string"></polygon>
         <text class="text"
               [attr.x]="hex.center.x"
               [attr.y]="hex.center.y"
               text-anchor="middle">{{to_letter(hex)}}</text>
-    </g>
+    </svg>
 </svg>

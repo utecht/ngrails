@@ -6,9 +6,10 @@ export interface Point {
 export interface Hex {
     x: number;
     y: number;
-    point_string: string;
-    points: Point[];
-    center?: Point;
+    point_string?: string;
+    points?: Point[];
+    center: Point;
+    origin: Point;
     color?: string;
 }
 
@@ -17,6 +18,7 @@ export interface Board {
     y_size: number;
     columns: number;
     rows: number;
+    size: number;
 }
 
 export function hex_to_letter(hex: Hex): string{
@@ -59,27 +61,34 @@ export function get_neighbors(hex: Hex, hexes: Hex[]): Hex[]{
     return ret;
 }
 
-export function generate_points(x:number, y:number, board: Board): Hex{
-    let height: number = board.y_size / board.rows;
-    let size: number = height / 2;
+export function offset_hexes(x:number, y:number, board: Board): Hex{
+    let height: number = board.size * 2;
     let width: number = (Math.sqrt(3) / 2) * height;
-    let center: Point = {x: (width * x) - width / 2,
-                         y: ((height * .75) * y) - height / 4};
+    let center: Point = {x: width / 2,
+                         y: height / 2};
+    let origin: Point = {x: x * width,
+                         y: y * (height * .75)};
+    // offset even rows
     if(y % 2 == 0){
-        center.x = center.x + (width / 2);
+        origin.x = origin.x + (width /2 );
     }
-    let points: Point[] = [];
-    for(let i = 0; i < 6; i++){
-        points.push(hex_corner(center, size, i));
-    }
-    let point_string: string = points.map(point_to_string).join(' ');
     let hex: Hex = {
         x: x,
         y: y,
         center: center,
-        points: points,
-        point_string: point_string
+        origin: origin,
     };
+    return hex;
+}
+
+export function generate_points(hex: Hex, board: Board): Hex{
+    let points: Point[] = [];
+    for(let i = 0; i < 6; i++){
+        points.push(hex_corner(hex.center, board.size, i));
+    }
+    let point_string: string = points.map(point_to_string).join(' ');
+    hex.points = points;
+    hex.point_string = point_string;
     return hex;
 }
 
