@@ -4,3 +4,8 @@
     stroke: #000;
     stroke-width: 1;
 }
+
+text.text {
+    font-family: serif;
+    fill: black;
+}

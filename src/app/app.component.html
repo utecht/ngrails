@@ -14,10 +14,15 @@
 </form>
 <svg [attr.width]="board.x_size"
      [attr.height]="board.y_size">
-    <polygon *ngFor="let hex of hexes"
+    <g *ngFor="let hex of hexes">
+        <polygon
              class="hex"
              (click)="debug(hex)"
              [attr.fill]="hex.color"
-             [attr.points]="hex.point_string">
-    </polygon>
+             [attr.points]="hex.point_string"></polygon>
+        <text class="text"
+              [attr.x]="hex.center.x"
+              [attr.y]="hex.center.y"
+              text-anchor="middle">{{to_letter(hex)}}</text>
+    </g>
 </svg>

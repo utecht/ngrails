@@ -8,6 +8,7 @@ export interface Hex {
     y: number;
     point_string: string;
     points: Point[];
+    center?: Point;
     color?: string;
 }
 
@@ -75,6 +76,7 @@ export function generate_points(x:number, y:number, board: Board): Hex{
     let hex: Hex = {
         x: x,
         y: y,
+        center: center,
         points: points,
         point_string: point_string
     };

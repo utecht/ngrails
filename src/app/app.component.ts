@@ -32,6 +32,10 @@ export class AppComponent implements OnInit {
      }
   }
 
+  to_letter(hex: Hex): string{
+      return hex_to_letter(hex);
+  }
+
   debug(hex: Hex){
       //this.debug_string=JSON.stringify(hex);
       for(let h of this.hexes){
