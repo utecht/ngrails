@@ -1,0 +1,35 @@
+<p *ngIf="debug_string">
+  {{debug_string}}
+</p>
+<form *ngIf="board">
+    <label for="x_size">X size</label>
+    <input type="number" name="x_size" [(ngModel)]="board.x_size">
+    <label for="y_size">Y size</label>
+    <input type="number" name="y_size" [(ngModel)]="board.y_size">
+    <label for="columns">Columns</label>
+    <input type="number" name="columns" [(ngModel)]="board.columns">
+    <label for="rows">Rows</label>
+    <input type="number" name="rows" [(ngModel)]="board.rows">
+    <label for="size">Size</label>
+    <input type="number" name="size" [(ngModel)]="board.size">
+    <button (click)="set_hexes()">Set</button>
+</form>
+<svg [attr.width]="board.x_size"
+     [attr.height]="board.y_size">
+    <svg *ngFor="let hex of hexes"
+         class="crosshair"
+         (click)="debug(hex)"
+         [attr.width]="hex.width"
+         [attr.height]="hex.height"
+         [attr.x]="hex.origin.x"
+         [attr.y]="hex.origin.y">
+        <polygon
+             class="hex"
+             [attr.fill]="hex.color"
+             [attr.points]="hex.point_string"></polygon>
+        <text class="text"
+              x="50%"
+              y="90%"
+              text-anchor="middle">{{to_letter(hex)}}</text>
+    </svg>
+</svg>

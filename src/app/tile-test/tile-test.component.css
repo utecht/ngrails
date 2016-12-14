@@ -1,0 +1,15 @@
+.crosshair{
+    cursor: crosshair;
+}
+
+.hex {
+    fill-opacity: 0.4;
+    stroke: #000;
+    stroke-width: 1;
+}
+
+text.text {
+    font-family: serif;
+    fill: black;
+    font-size: .75em;
+}

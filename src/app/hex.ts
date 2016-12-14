@@ -91,10 +91,10 @@ export function offset_hexes(x:number, y:number, size: number): Hex{
     return hex;
 }
 
-export function generate_points(hex: Hex, board: Board): Hex{
+export function generate_points(hex: Hex, size: number): Hex{
     let points: Point[] = [];
     for(let i = 0; i < 6; i++){
-        points.push(hex_corner(hex.center, board.size, i));
+        points.push(hex_corner(hex.center, size, i));
     }
     let point_string: string = points.map(point_to_string).join(' ');
     hex.points = points;
@@ -104,6 +104,15 @@ export function generate_points(hex: Hex, board: Board): Hex{
 
 function point_to_string(point: Point): string{
     return point.x + ',' + point.y;
+}
+
+function hex_side(center: Point, size: number, i: number): Point{
+    let angle_deg: number = 60 * i;
+    let angle_rad: number = Math.PI / 180 * angle_deg;
+    size = Math.sqrt(Math.pow(size, 2) - Math.pow((size / 2), 2))
+    let point: Point = {x: center.x + size * Math.cos(angle_rad),
+                        y: center.y + size * Math.sin(angle_rad)}
+    return point;
 }
 
 function hex_corner(center: Point, size: number, i: number): Point{

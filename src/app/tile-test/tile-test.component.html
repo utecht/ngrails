@@ -1,0 +1,12 @@
+<svg *ngIf="hex"
+     class="crosshair"
+     (click)="debug(hex)"
+     [attr.width]="hex.width"
+     [attr.height]="hex.height"
+     [attr.x]="hex.origin.x"
+     [attr.y]="hex.origin.y">
+    <polygon
+         class="hex"
+         [attr.fill]="hex.color"
+         [attr.points]="hex.point_string"></polygon>
+</svg>
