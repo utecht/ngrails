@@ -14,12 +14,13 @@ export class TileTestComponent implements OnInit {
   side_b: number = 3;
   side_a2: number = 1;
   side_b2: number = 4;
-  city: boolean = false;
+  city: boolean = true;
 
   constructor() { }
 
   ngOnInit() {
       this.redraw();
+      this.hex.color = "#38AC00";
   }
 
   redraw(){
