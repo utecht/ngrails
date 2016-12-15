@@ -1,32 +1,44 @@
 <h2>Tile tester</h2>
 <form>
+    <label for="size">Size</label>
+    <input type="number" name="size" [(ngModel)]="size">
+    <button (click)="redraw()">Redraw</button>
     <label for="a">A</label>
     <input type="number" name="a" min="0" max="6" [(ngModel)]="side_a">
     <label for="b">B</label>
     <input type="number" name="b" min="0" max="6" [(ngModel)]="side_b">
-
     <label for="a2">A2</label>
     <input type="number" name="a2" min="0" max="6" [(ngModel)]="side_a2">
     <label for="b2">B2</label>
     <input type="number" name="b2" min="0" max="6" [(ngModel)]="side_b2">
+    <label for="city">City?</label>
+    <input type="checkbox" name="city" [(ngModel)]="city">
 </form>
+<br/>
 <svg *ngIf="hex"
-     class="crosshair"
-     (click)="debug(hex)"
-     [attr.width]="hex.width"
-     [attr.height]="hex.height"
-     [attr.x]="hex.origin.x"
-     [attr.y]="hex.origin.y">
+    class="crosshair"
+    (click)="debug(hex)"
+    [attr.width]="hex.width"
+    [attr.height]="hex.height"
+    [attr.x]="hex.origin.x"
+    [attr.y]="hex.origin.y">
     <polygon
-         class="hex"
-         [attr.fill]="hex.color"
-         [attr.points]="hex.point_string"></polygon>
-         <path class="track"
-               [attr.d]="generate_path(side_a, side_b)"
-               stroke="black"
-               fill="transparent"/>
-         <path class="track"
-               [attr.d]="generate_path(side_a2, side_b2)"
-               stroke="black"
-               fill="transparent"/>
+        class="hex"
+        [attr.fill]="hex.color"
+        [attr.points]="hex.point_string"></polygon>
+        <path class="track"
+            [attr.d]="generate_path(side_a, side_b)"
+            stroke="black"
+            [attr.stroke-width]="size/10"
+            fill="transparent"/>
+        <path class="track"
+            [attr.d]="generate_path(side_a2, side_b2)"
+            [attr.stroke-width]="size/10"
+            stroke="black"
+            fill="transparent"/>
+        <circle *ngIf="city"
+            class="city"
+            [attr.cx]="hex.center.x"
+            [attr.cy]="hex.center.y"
+            [attr.r]="size / 5"/>
 </svg>

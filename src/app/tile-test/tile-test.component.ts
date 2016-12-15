@@ -9,16 +9,20 @@ import { Hex, get_neighbors, offset_hexes,
 })
 export class TileTestComponent implements OnInit {
   hex: Hex;
-  size: number;
+  size: number = 50;
   side_a: number = 0;
   side_b: number = 3;
   side_a2: number = 1;
   side_b2: number = 4;
+  city: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
-      this.size = 50;
+      this.redraw();
+  }
+
+  redraw(){
       this.hex = offset_hexes(1, 1, this.size);
       generate_points(this.hex, this.size);
   }

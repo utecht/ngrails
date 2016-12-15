@@ -15,5 +15,9 @@ text.text {
 }
 
 .track{
-    stroke-width: 5;
+}
+
+.city {
+    fill: white;
+    stroke: black;
 }
