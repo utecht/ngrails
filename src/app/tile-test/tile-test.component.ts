@@ -12,6 +12,8 @@ export class TileTestComponent implements OnInit {
   size: number;
   side_a: number = 0;
   side_b: number = 3;
+  side_a2: number = 1;
+  side_b2: number = 4;
 
   constructor() { }
 
@@ -21,11 +23,11 @@ export class TileTestComponent implements OnInit {
       generate_points(this.hex, this.size);
   }
 
-  generate_path(){
-      let a = hex_side(this.hex.center, this.size, this.side_a);
-      let b = hex_side(this.hex.center, this.size, this.side_b);
+  generate_path(side_a, side_b){
+      let a = hex_side(this.hex.center, this.size, side_a);
+      let b = hex_side(this.hex.center, this.size, side_b);
       let curve = `${this.hex.center.x} ${this.hex.center.y}`
-      return `M ${a.x} ${a.y} C ${curve}, ${curve}, ${b.x} ${b.y}`
+      return `M ${a.x} ${a.y} Q ${curve}, ${b.x} ${b.y}`
   }
 
 }

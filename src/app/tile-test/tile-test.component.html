@@ -1,9 +1,14 @@
 <h2>Tile tester</h2>
 <form>
     <label for="a">A</label>
-    <input type="number" name="a" [(ngModel)]="side_a">
+    <input type="number" name="a" min="0" max="6" [(ngModel)]="side_a">
     <label for="b">B</label>
-    <input type="number" name="b" [(ngModel)]="side_b">
+    <input type="number" name="b" min="0" max="6" [(ngModel)]="side_b">
+
+    <label for="a2">A2</label>
+    <input type="number" name="a2" min="0" max="6" [(ngModel)]="side_a2">
+    <label for="b2">B2</label>
+    <input type="number" name="b2" min="0" max="6" [(ngModel)]="side_b2">
 </form>
 <svg *ngIf="hex"
      class="crosshair"
@@ -17,7 +22,11 @@
          [attr.fill]="hex.color"
          [attr.points]="hex.point_string"></polygon>
          <path class="track"
-               [attr.d]="generate_path()"
+               [attr.d]="generate_path(side_a, side_b)"
+               stroke="black"
+               fill="transparent"/>
+         <path class="track"
+               [attr.d]="generate_path(side_a2, side_b2)"
                stroke="black"
                fill="transparent"/>
 </svg>
